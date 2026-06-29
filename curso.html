@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Referência – Curso de Terminal</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #f8f7f4;
+    padding: 32px 16px 64px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+
+  /* Capa */
+  .cover {
+    background: #1e1e2e;
+    color: #fff;
+    border-radius: 16px;
+    padding: 48px 40px 40px;
+    margin-bottom: 40px;
+  }
+  .cover-badge {
+    display: inline-block;
+    background: #534AB7;
+    color: #EEEDFE;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .cover h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+  .cover p { color: #a8a8c0; font-size: 15px; }
+  .cover-meta {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid #2e2e42;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .cover-meta span { color: #c0c0d8; font-size: 13px; }
+  .cover-meta strong { color: #fff; display: block; font-size: 15px; font-weight: 600; }
+
+  /* Índice */
+  .toc {
+    background: #fff;
+    border: 1px solid #e4e2d8;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 36px;
+  }
+  .toc h2 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 16px; }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin-bottom: 6px; }
+  .toc a { color: #534AB7; text-decoration: none; font-size: 14px; }
+  .toc a:hover { text-decoration: underline; }
+  .toc .sub { margin-top: 4px; margin-left: 12px; list-style: none; padding-left: 0; }
+  .toc .sub li { margin-bottom: 3px; }
+  .toc .sub a { color: #555; font-size: 13px; }
+
+  /* Seções */
+  .section { margin-bottom: 48px; }
+  .section-header {
+    background: #1e1e2e;
+    color: #fff;
+    border-radius: 12px 12px 0 0;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-num {
+    background: #534AB7;
+    color: #EEEDFE;
+    font-size: 13px;
+    font-weight: 700;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-header h2 { font-size: 19px; font-weight: 600; }
+  .section-body {
+    background: #fff;
+    border: 1px solid #e4e2d8;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    padding: 28px 32px;
+  }
+
+  /* Conceitos */
+  .concept {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #f0ede4;
+  }
+  .concept:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .concept h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .concept h3 .num {
+    background: #E1F5EE;
+    color: #0F6E56;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 5px;
+  }
+  .concept p { font-size: 14px; color: #444; margin-bottom: 10px; }
+
+  /* Blocos de código */
+  .code-block {
+    background: #1e1e2e;
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    overflow-x: auto;
+  }
+  .code-block .label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #6c6c8a;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .code-block code {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13.5px;
+    color: #e0e0f0;
+    display: block;
+    white-space: pre;
+  }
+  .code-block .prompt { color: #85B7EB; }
+  .code-block .cmd { color: #97C459; font-weight: 600; }
+  .code-block .arg { color: #FAC775; }
+  .code-block .out { color: #a8a8c0; }
+  .code-block .comment { color: #6c6c8a; font-style: italic; }
+
+  /* Tabela de referência */
+  .ref-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  .ref-table thead th {
+    background: #f0ede4;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666;
+    border-bottom: 2px solid #e0ddd4;
+  }
+  .ref-table tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f0ede4;
+    color: #333;
+  }
+  .ref-table tbody tr:last-child td { border-bottom: none; }
+  .ref-table tbody tr:hover td { background: #faf9f5; }
+  .ref-table code {
+    background: #EEEDFE;
+    color: #3C3489;
+    font-family: 'Consolas', monospace;
+    font-size: 12.5px;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-weight: 600;
+  }
+
+  /* Alerta / dica */
+  .tip {
+    border-left: 3px solid #1D9E75;
+    background: #E1F5EE;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: #085041;
+  }
+  .tip strong { color: #0F6E56; }
+  .warning {
+    border-left: 3px solid #BA7517;
+    background: #FAEEDA;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: #412402;
+  }
+  .warning strong { color: #854F0B; }
+
+  /* Diagrama visual */
+  .diagram {
+    background: #f8f7f4;
+    border: 1px solid #e4e2d8;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 14px 0;
+    font-family: 'Consolas', monospace;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.9;
+  }
+
+  /* Mapa mental – visão geral */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .ov-card {
+    background: #f8f7f4;
+    border: 1px solid #e4e2d8;
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+  }
+  .ov-card .icon {
+    font-size: 22px;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .ov-card .title { font-size: 13px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+  .ov-card .cmds { font-size: 11.5px; color: #888; }
+
+  /* Exercícios */
+  .ex-block {
+    background: #f8f7f4;
+    border: 1px solid #e4e2d8;
+    border-radius: 10px;
+    margin: 14px 0;
+    overflow: hidden;
+  }
+  .ex-header {
+    background: #534AB7;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 8px 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .ex-body { padding: 16px 20px; }
+  .ex-body ol { padding-left: 20px; }
+  .ex-body li { margin-bottom: 8px; font-size: 14px; color: #333; }
+  .ex-body li code {
+    background: #EEEDFE;
+    color: #3C3489;
+    font-family: 'Consolas', monospace;
+    font-size: 12.5px;
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+
+  /* Sugestão de estrutura do curso */
+  .syllabus {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .syl-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0ede4;
+    align-items: flex-start;
+  }
+  .syl-item:last-child { border-bottom: none; }
+  .syl-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #EEEDFE;
+    color: #534AB7;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .syl-content h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; color: #1a1a1a; }
+  .syl-content p { font-size: 13px; color: #666; }
+  .syl-content .tags { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .syl-content .tag {
+    background: #f0ede4;
+    color: #555;
+    font-size: 11.5px;
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-family: 'Consolas', monospace;
+  }
+
+  /* Rodapé */
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #e4e2d8;
+  }
+
+  @media print {
+    body { background: #fff; padding: 16px; }
+    .cover { background: #1e1e2e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .section-header { background: #1e1e2e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .code-block { background: #1e1e2e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- CAPA -->
+<div class="cover">
+  <span class="cover-badge">Material de Apoio</span>
+  <h1>Curso de Terminal</h1>
+  <p>Guia completo de referência para acompanhar as aulas — comandos, exemplos e exercícios práticos.</p>
+  <div class="cover-meta">
+    <div><span>Módulo</span><strong>01 — Fundamentos</strong></div>
+    <div><span>Ambiente</span><strong>Windows (PowerShell)</strong></div>
+    <div><span>Capítulos</span><strong>5 capítulos</strong></div>
+  </div>
+</div>
+
+<!-- ÍNDICE -->
+<div class="toc">
+  <h2>Índice</h2>
+  <ol>
+    <li><a href="#cap1">Capítulo 1 — O que é o Terminal?</a>
+      <ul class="sub">
+        <li><a href="#cap1">Terminal, Shell e Linha de Comando</a></li>
+        <li><a href="#cap1">Por que aprender o terminal</a></li>
+      </ul>
+    </li>
+    <li><a href="#cap2">Capítulo 2 — Navegação Básica</a>
+      <ul class="sub">
+        <li><a href="#cap2">pwd, ls, cd</a></li>
+        <li><a href="#cap2">Caminhos absolutos e relativos</a></li>
+      </ul>
+    </li>
+    <li><a href="#cap3">Capítulo 3 — Criando Coisas</a>
+      <ul class="sub">
+        <li><a href="#cap3">mkdir, New-Item</a></li>
+      </ul>
+    </li>
+    <li><a href="#cap4">Capítulo 4 — Gerenciando Arquivos</a>
+      <ul class="sub">
+        <li><a href="#cap4">cp, mv, rm</a></li>
+      </ul>
+    </li>
+    <li><a href="#cap5">Capítulo 5 — Lendo Arquivos</a>
+      <ul class="sub">
+        <li><a href="#cap5">cat, Get-Content</a></li>
+      </ul>
+    </li>
+    <li><a href="#ref">Tabela de Referência Rápida</a></li>
+  </ol>
+</div>
+
+<!-- CAP 1 -->
+<div class="section" id="cap1">
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>O que é o Terminal?</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="concept">
+      <h3><span class="num">1.1</span> Os três conceitos essenciais</h3>
+      <p>Muita gente confunde esses termos. Entender a diferença é o primeiro passo.</p>
+      <table class="ref-table">
+        <thead><tr><th>Termo</th><th>O que é</th><th>Analogia</th></tr></thead>
+        <tbody>
+          <tr><td><code>Terminal</code></td><td>O programa (janela) onde você digita</td><td>O microfone que você fala</td></tr>
+          <tr><td><code>Shell</code></td><td>O "cérebro" que interpreta os comandos</td><td>O ouvido que entende o que você falou</td></tr>
+          <tr><td><code>Linha de Comando</code></td><td>A forma de interagir (digitando texto)</td><td>A língua que você está falando</td></tr>
+        </tbody>
+      </table>
+      <div class="tip"><strong>Resumo:</strong> Você digita no <strong>terminal</strong>, a <strong>shell</strong> entende, o sistema executa.</div>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">1.2</span> Shells mais comuns</h3>
+      <table class="ref-table">
+        <thead><tr><th>Shell</th><th>Sistema</th><th>Observação</th></tr></thead>
+        <tbody>
+          <tr><td><code>PowerShell</code></td><td>Windows</td><td>Usada neste curso</td></tr>
+          <tr><td><code>Bash</code></td><td>Linux / Mac</td><td>Mais usada no mundo profissional</td></tr>
+          <tr><td><code>Zsh</code></td><td>macOS (padrão)</td><td>Extensão do Bash</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">1.3</span> Terminal vs Interface Gráfica</h3>
+      <table class="ref-table">
+        <thead><tr><th>Interface Gráfica (GUI)</th><th>Terminal (CLI)</th></tr></thead>
+        <tbody>
+          <tr><td>Clica em ícones e janelas</td><td>Digita comandos de texto</td></tr>
+          <tr><td>Intuitiva para iniciantes</td><td>Curva de aprendizado maior</td></tr>
+          <tr><td>Mais lenta para tarefas repetitivas</td><td>Muito mais rápida para automação</td></tr>
+          <tr><td>Difícil de usar remotamente</td><td>Ideal para acesso remoto (SSH)</td></tr>
+        </tbody>
+      </table>
+      <div class="tip"><strong>Importante:</strong> As duas abordagens são <strong>complementares</strong>, não rivais. Profissionais de tecnologia usam as duas.</div>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">1.4</span> Como abrir o terminal no Windows</h3>
+      <p>Pressione <strong>Win + R</strong>, digite um dos comandos abaixo e pressione Enter:</p>
+      <div class="code-block">
+        <span class="label">Windows – atalhos de abertura</span>
+        <code><span class="comment"># Opção 1 – PowerShell</span>
+<span class="cmd">powershell</span>
+
+<span class="comment"># Opção 2 – Prompt de Comando (mais antigo)</span>
+<span class="cmd">cmd</span>
+
+<span class="comment"># Opção 3 – Windows Terminal (app moderno)</span>
+<span class="cmd">wt</span></code>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CAP 2 -->
+<div class="section" id="cap2">
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>Navegação Básica</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="concept">
+      <h3><span class="num">2.1</span> Estrutura de pastas e arquivos</h3>
+      <p>Todo sistema organiza informações em uma hierarquia de pastas (diretórios) e arquivos.</p>
+      <div class="diagram">Documentos/
+├── Projetos/
+│   ├── site.html
+│   └── app.js
+└── Notas.txt</div>
+      <p>No terminal, você <strong>navega</strong> por essa estrutura com comandos em vez de clicar.</p>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">2.2</span> <code>pwd</code> — Onde estou?</h3>
+      <p>Exibe o caminho completo da pasta onde você está agora.</p>
+      <div class="code-block">
+        <span class="label">Exemplo</span>
+        <code><span class="prompt">PS C:\Users\luizh\Documents&gt;</span> <span class="cmd">pwd</span>
+
+<span class="out">Path
+----
+C:\Users\luizh\Documents</span></code>
+      </div>
+      <div class="tip"><strong>Dica:</strong> Use <code>pwd</code> sempre que estiver perdido e quiser saber onde está.</div>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">2.3</span> <code>ls</code> — Ver o conteúdo da pasta</h3>
+      <p>Lista todos os arquivos e pastas dentro do diretório atual.</p>
+      <div class="code-block">
+        <span class="label">Exemplo</span>
+        <code><span class="prompt">PS C:\Users\luizh\Documentos\projetos&gt;</span> <span class="cmd">ls</span>
+
+<span class="out">    Directory: C:\Users\luizh\Documentos\projetos
+
+Mode    LastWriteTime    Length Name
+----    -------------    ------ ----
+la---   10/09/2023 21:13   1259 imc.js
+la---   10/09/2023 20:54    896 index.html
+la---   27/09/2023 10:00   1584 style.css</span></code>
+      </div>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">2.4</span> <code>cd</code> — Entrar em uma pasta</h3>
+      <p><code>cd</code> significa <em>change directory</em> (mudar de diretório).</p>
+      <div class="code-block">
+        <span class="label">Entrar em uma pasta</span>
+        <code><span class="prompt">PS C:\Users\luizh\OneDrive&gt;</span> <span class="cmd">cd</span> <span class="arg">Documentos</span>
+<span class="prompt">PS C:\Users\luizh\OneDrive\Documentos&gt;</span></code>
+      </div>
+      <div class="code-block">
+        <span class="label">Voltar uma pasta (..) = pasta acima</span>
+        <code><span class="prompt">PS C:\Users\luizh\OneDrive\Documentos&gt;</span> <span class="cmd">cd</span> <span class="arg">..</span>
+<span class="prompt">PS C:\Users\luizh\OneDrive&gt;</span></code>
+      </div>
+      <div class="code-block">
+        <span class="label">Ir para a pasta do usuário (~)</span>
+        <code><span class="prompt">PS C:\Users\luizh\OneDrive&gt;</span> <span class="cmd">cd</span> <span class="arg">~</span>
+<span class="prompt">PS C:\Users\luizh&gt;</span></code>
+      </div>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">2.5</span> Caminhos Absolutos vs Relativos</h3>
+      <table class="ref-table">
+        <thead><tr><th>Tipo</th><th>Exemplo</th><th>Quando usar</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Absoluto</strong></td>
+            <td><code>C:\Users\Luiz\Documentos</code></td>
+            <td>Funciona de qualquer lugar; começa sempre pela raiz</td>
+          </tr>
+          <tr>
+            <td><strong>Relativo</strong></td>
+            <td><code>cd Documentos</code></td>
+            <td>Depende de onde você está agora; mais curto de digitar</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tip"><strong>Regra prática:</strong> Se já estiver em <code>C:\Users\Luiz</code>, você pode usar <code>cd Documentos</code> em vez de digitar o caminho completo.</div>
+    </div>
+
+    <div class="ex-block">
+      <div class="ex-header">✏️ Exercício Prático — Navegação</div>
+      <div class="ex-body">
+        <ol>
+          <li>Abra o terminal e execute <code>pwd</code> para ver onde você está.</li>
+          <li>Execute <code>ls</code> para listar o conteúdo da pasta atual.</li>
+          <li>Entre em alguma pasta com <code>cd nome_da_pasta</code>.</li>
+          <li>Execute <code>pwd</code> novamente para confirmar onde está.</li>
+          <li>Volte com <code>cd ..</code> e confirme com <code>pwd</code>.</li>
+          <li>Vá direto para sua pasta de usuário com <code>cd ~</code>.</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CAP 3 -->
+<div class="section" id="cap3">
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2>Criando Coisas</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="concept">
+      <h3><span class="num">3.1</span> <code>mkdir</code> — Criar pastas</h3>
+      <p><code>mkdir</code> significa <em>make directory</em> (criar diretório).</p>
+      <div class="code-block">
+        <span class="label">Criar uma pasta</span>
+        <code><span class="prompt">PS C:\Users\luizh\Documentos&gt;</span> <span class="cmd">mkdir</span> <span class="arg">terminal</span>
+
+<span class="out">    Directory: C:\Users\luizh\Documentos
+
+Mode        LastWriteTime    Length Name
+----        -------------    ------ ----
+d----  24/02/2026    13:12          terminal</span></code>
+      </div>
+      <div class="code-block">
+        <span class="label">Criar várias pastas de uma vez</span>
+        <code><span class="prompt">PS ...&gt;</span> <span class="cmd">mkdir</span> <span class="arg">src assets docs</span></code>
+      </div>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">3.2</span> <code>New-Item</code> — Criar arquivos (PowerShell)</h3>
+      <p>No PowerShell, o comando para criar arquivos vazios é <code>New-Item</code>.</p>
+      <div class="code-block">
+        <span class="label">Criar um arquivo</span>
+        <code><span class="prompt">PS C:\...\terminal&gt;</span> <span class="cmd">New-Item</span> <span class="arg">arquivo.txt</span>
+
+<span class="out">    Directory: C:\Users\luizh\Documentos\terminal
+
+Mode        LastWriteTime  Length Name
+----        -------------  ------ ----
+-a---  24/02/2026   13:17       0 arquivo.txt</span></code>
+      </div>
+      <div class="code-block">
+        <span class="label">Criar vários arquivos de uma vez</span>
+        <code><span class="prompt">PS ...&gt;</span> <span class="cmd">New-Item</span> <span class="arg">index.html style.css app.js</span></code>
+      </div>
+      <div class="tip"><strong>Diferença importante:</strong> <code>mkdir</code> cria <strong>pastas</strong>. <code>New-Item</code> cria <strong>arquivos</strong>.</div>
+    </div>
+
+    <div class="ex-block">
+      <div class="ex-header">✏️ Exercício Prático — Criando</div>
+      <div class="ex-body">
+        <ol>
+          <li>Navegue até sua pasta de Documentos com <code>cd ~/Documents</code>.</li>
+          <li>Crie uma pasta chamada <code>meu-projeto</code> com <code>mkdir meu-projeto</code>.</li>
+          <li>Entre nela: <code>cd meu-projeto</code>.</li>
+          <li>Crie os arquivos <code>New-Item index.html style.css</code>.</li>
+          <li>Confirme com <code>ls</code> que tudo foi criado.</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CAP 4 -->
+<div class="section" id="cap4">
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2>Gerenciando Arquivos</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="concept">
+      <h3><span class="num">4.1</span> <code>cp</code> — Copiar arquivos</h3>
+      <p>Cria uma cópia de um arquivo ou pasta. O original continua existindo.</p>
+      <div class="code-block">
+        <span class="label">Sintaxe</span>
+        <code><span class="cmd">cp</span> <span class="arg">origem destino</span></code>
+      </div>
+      <div class="code-block">
+        <span class="label">Exemplos</span>
+        <code><span class="comment"># Copiar no mesmo lugar (novo nome)</span>
+<span class="cmd">cp</span> <span class="arg">arquivo.txt copia.txt</span>
+
+<span class="comment"># Copiar para outra pasta</span>
+<span class="cmd">cp</span> <span class="arg">arquivo.txt Documentos/</span></code>
+      </div>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">4.2</span> <code>mv</code> — Mover ou renomear</h3>
+      <p>Move um arquivo para outro lugar <strong>ou</strong> muda seu nome (o original deixa de existir).</p>
+      <div class="code-block">
+        <span class="label">Mover para outra pasta</span>
+        <code><span class="cmd">mv</span> <span class="arg">arquivo.txt Documentos/</span></code>
+      </div>
+      <div class="code-block">
+        <span class="label">Renomear arquivo</span>
+        <code><span class="cmd">mv</span> <span class="arg">copia.txt novo_nome.txt</span></code>
+      </div>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">4.3</span> <code>rm</code> — Remover arquivos</h3>
+      <div class="warning"><strong>⚠️ Atenção:</strong> Arquivos removidos com <code>rm</code> no terminal <strong>não vão para a Lixeira</strong>. São excluídos permanentemente.</div>
+      <div class="code-block">
+        <span class="label">Remover um arquivo</span>
+        <code><span class="cmd">rm</span> <span class="arg">arquivo.txt</span></code>
+      </div>
+      <div class="code-block">
+        <span class="label">Remover múltiplos arquivos</span>
+        <code><span class="cmd">rm</span> <span class="arg">arquivo1.txt arquivo2.txt</span></code>
+      </div>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">4.4</span> Remover pastas</h3>
+      <p>Pastas não podem ser removidas com <code>rm</code> simples — é preciso usar o parâmetro <code>-r</code> (recursivo).</p>
+      <div class="code-block">
+        <span class="label">Remover uma pasta e todo seu conteúdo</span>
+        <code><span class="cmd">rm</span> <span class="arg">-r nome_da_pasta</span></code>
+      </div>
+      <div class="warning"><strong>⚠️ Cuidado redobrado:</strong> <code>rm -r</code> apaga a pasta <strong>e tudo dentro dela</strong> de forma irrecuperável.</div>
+    </div>
+
+    <div class="ex-block">
+      <div class="ex-header">✏️ Exercício Prático — Gerenciando</div>
+      <div class="ex-body">
+        <ol>
+          <li>Dentro de <code>meu-projeto</code>, copie o <code>index.html</code>: <code>cp index.html backup.html</code>.</li>
+          <li>Renomeie o backup: <code>mv backup.html index-v1.html</code>.</li>
+          <li>Confirme com <code>ls</code>.</li>
+          <li>Remova o arquivo renomeado: <code>rm index-v1.html</code>.</li>
+          <li>Crie uma pasta <code>mkdir testes</code> e depois remova-a: <code>rm -r testes</code>.</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CAP 5 -->
+<div class="section" id="cap5">
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2>Lendo Arquivos</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="concept">
+      <h3><span class="num">5.1</span> <code>cat</code> — Ver o conteúdo completo</h3>
+      <p>Exibe todo o conteúdo de um arquivo direto no terminal.</p>
+      <div class="code-block">
+        <span class="label">Exemplo</span>
+        <code><span class="prompt">PS ...&gt;</span> <span class="cmd">cat</span> <span class="arg">package.json</span>
+
+<span class="out">{
+  "name": "meu-projeto",
+  "version": "1.0.0",
+  ...
+}</span></code>
+      </div>
+      <div class="tip"><strong>Quando usar:</strong> Ideal para arquivos pequenos que cabem na tela. Para arquivos grandes, use os comandos abaixo.</div>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">5.2</span> <code>Get-Content -Head</code> — Ver as primeiras linhas</h3>
+      <p>Mostra apenas o começo do arquivo. Útil para ver o início de logs ou arquivos grandes.</p>
+      <div class="code-block">
+        <span class="label">Ver as primeiras 10 linhas</span>
+        <code><span class="prompt">PS ...&gt;</span> <span class="cmd">Get-Content</span> <span class="arg">package.json</span> -Head 10
+
+<span class="out">{
+  "name": "meu-projeto",
+  "version": "1.0.0",
+  ...
+}</span></code>
+      </div>
+    </div>
+
+    <div class="concept">
+      <h3><span class="num">5.3</span> <code>Get-Content -Tail</code> — Ver as últimas linhas</h3>
+      <p>Mostra apenas o fim do arquivo. Muito usado para acompanhar <strong>logs em tempo real</strong>.</p>
+      <div class="code-block">
+        <span class="label">Ver as últimas 10 linhas</span>
+        <code><span class="prompt">PS ...&gt;</span> <span class="cmd">Get-Content</span> <span class="arg">package.json</span> -Tail 10</code>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <div class="ex-header">✏️ Exercício Prático — Lendo Arquivos</div>
+      <div class="ex-body">
+        <ol>
+          <li>Crie um arquivo de texto com algum conteúdo (pode ser pelo bloco de notas).</li>
+          <li>Use <code>cat nome_do_arquivo.txt</code> para ver o conteúdo.</li>
+          <li>Use <code>Get-Content nome_do_arquivo.txt -Head 5</code> para ver as 5 primeiras linhas.</li>
+          <li>Use <code>Get-Content nome_do_arquivo.txt -Tail 5</code> para ver as 5 últimas.</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TABELA DE REFERÊNCIA RÁPIDA -->
+<div class="section" id="ref">
+  <div class="section-header">
+    <div class="section-num">📋</div>
+    <h2>Tabela de Referência Rápida</h2>
+  </div>
+  <div class="section-body">
+    <p style="margin-bottom:16px; font-size:14px; color:#555;">Cola rápida com todos os comandos do módulo 1. Imprima e deixe do lado!</p>
+    <table class="ref-table">
+      <thead>
+        <tr><th>Comando</th><th>O que faz</th><th>Exemplo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>pwd</code></td><td>Mostra onde você está</td><td><code>pwd</code></td></tr>
+        <tr><td><code>ls</code></td><td>Lista arquivos e pastas</td><td><code>ls</code></td></tr>
+        <tr><td><code>cd pasta</code></td><td>Entra em uma pasta</td><td><code>cd Documentos</code></td></tr>
+        <tr><td><code>cd ..</code></td><td>Volta uma pasta</td><td><code>cd ..</code></td></tr>
+        <tr><td><code>cd ~</code></td><td>Vai para a pasta do usuário</td><td><code>cd ~</code></td></tr>
+        <tr><td><code>mkdir nome</code></td><td>Cria uma pasta</td><td><code>mkdir projetos</code></td></tr>
+        <tr><td><code>New-Item nome</code></td><td>Cria um arquivo</td><td><code>New-Item index.html</code></td></tr>
+        <tr><td><code>cp origem destino</code></td><td>Copia arquivo</td><td><code>cp a.txt b.txt</code></td></tr>
+        <tr><td><code>mv origem destino</code></td><td>Move ou renomeia</td><td><code>mv a.txt novo.txt</code></td></tr>
+        <tr><td><code>rm arquivo</code></td><td>Remove arquivo</td><td><code>rm arquivo.txt</code></td></tr>
+        <tr><td><code>rm -r pasta</code></td><td>Remove pasta e conteúdo</td><td><code>rm -r testes</code></td></tr>
+        <tr><td><code>cat arquivo</code></td><td>Mostra conteúdo completo</td><td><code>cat log.txt</code></td></tr>
+        <tr><td><code>Get-Content arq -Head N</code></td><td>Mostra as N primeiras linhas</td><td><code>Get-Content log.txt -Head 20</code></td></tr>
+        <tr><td><code>Get-Content arq -Tail N</code></td><td>Mostra as N últimas linhas</td><td><code>Get-Content log.txt -Tail 20</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="footer">
+  Material de apoio gerado como complemento ao Curso de Terminal — Módulo 1 · Ambiente: Windows / PowerShell
+</div>
+
+</div>
+</body>
+</html>
