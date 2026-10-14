@@ -441,7 +441,11 @@
           <li>Digite qualquer coisa sem sentido (ex: <code>blabla</code>) e pressione Enter. Leia a mensagem de erro — o que o terminal está dizendo?</li>
           <li>Execute <code>$PSVersionTable</code> e anote qual versão do PowerShell está instalada.</li>
           <li>Execute <code>Get-Date</code>. O que esse comando retorna?</li>
-          <li><strong>Desafio:</strong> Descubra e execute o comando que limpa a tela do terminal.</li>
+          <li>Execute o mesmo comando duas vezes seguidas. O resultado é diferente? Por quê?</li>
+          <li>Tente abrir o terminal pelo menu Iniciar (clique no botão do Windows e pesquise "PowerShell"). Qual a diferença em relação ao <code>Win + R</code>?</li>
+          <li>Execute <code>Get-Host</code>. Que informações esse comando exibe?</li>
+          <li>Execute <code>echo "Olá, terminal!"</code>. O que aparece na tela?</li>
+          <li><strong>Desafio:</strong> Descubra e execute o comando que limpa a tela do terminal. Depois execute <code>Get-Date</code> novamente para confirmar que o terminal continua funcionando após limpar.</li>
         </ol>
       </div>
     </div>
@@ -568,7 +572,11 @@ la---   27/09/2023 10:00   1584 style.css</span></code>
           <li>Vá direto para sua pasta de usuário com <code>cd ~</code>.</li>
           <li>Tente navegar usando um caminho absoluto completo, por exemplo: <code>cd C:\Users\SeuUsuario\Documents</code>.</li>
           <li>Agora volte ao usuário com <code>cd ~</code> e faça o mesmo usando caminho relativo: <code>cd Documents</code>.</li>
-          <li><strong>Desafio:</strong> Navegue até pelo menos 3 níveis de profundidade de pasta (ex: Documentos → Projetos → MinhaApp) usando apenas <code>cd</code>, e depois volte ao início usando apenas <code>cd ..</code> repetido.</li>
+          <li>Execute <code>ls</code> dentro de Documents. Existe alguma pasta chamada <code>Downloads</code> ou <code>Desktop</code> listada? Tente entrar nela.</li>
+          <li>Use <code>cd ~</code> para voltar ao início e tente ir direto para dois níveis de profundidade de uma vez: <code>cd Documents\NomeDePasta</code>.</li>
+          <li>Abra o Explorador de Arquivos do Windows e navegue até a mesma pasta que está no terminal. Compare: o que aparece nos dois lugares?</li>
+          <li>Volte ao terminal. Tente executar <code>cd</code> sem argumento nenhum. O que acontece?</li>
+          <li><strong>Desafio:</strong> Navegue até pelo menos 3 níveis de profundidade de pasta usando apenas <code>cd</code>, e depois volte ao início usando apenas <code>cd ..</code> repetido — sem usar <code>cd ~</code>.</li>
         </ol>
       </div>
     </div>
@@ -635,7 +643,11 @@ Mode        LastWriteTime  Length Name
           <li>Crie os arquivos principais: <code>New-Item index.html style.css app.js</code>.</li>
           <li>Entre na pasta <code>imagens</code> e crie um arquivo <code>New-Item placeholder.txt</code>.</li>
           <li>Volte para <code>meu-site</code> com <code>cd ..</code> e execute <code>ls</code> para ver a estrutura completa.</li>
-          <li><strong>Desafio:</strong> Tente recriar esta estrutura do zero em uma nova pasta chamada <code>meu-site-v2</code>, desta vez sem olhar as instruções acima.</li>
+          <li>Entre na pasta <code>scripts</code> e crie três arquivos de uma vez: <code>New-Item main.js utils.js config.js</code>.</li>
+          <li>Volte para <code>meu-site</code> e tente criar uma pasta com espaço no nome: <code>mkdir "minha pasta"</code>. O que acontece? Como as aspas resolvem o problema?</li>
+          <li>Crie uma subpasta dentro de <code>imagens</code> sem sair da pasta atual: <code>mkdir imagens\icones</code>. Confirme com <code>ls imagens</code>.</li>
+          <li>Abra o Explorador de Arquivos e encontre a pasta <code>meu-site</code>. Confira se tudo que foi criado pelo terminal aparece lá.</li>
+          <li><strong>Desafio:</strong> Recriar esta estrutura do zero em uma pasta chamada <code>meu-site-v2</code>, desta vez sem olhar as instruções — de memória.</li>
         </ol>
       </div>
     </div>
@@ -717,7 +729,11 @@ Mode        LastWriteTime  Length Name
           <li>Volte com <code>cd ..</code> e remova o arquivo movido: <code>rm scripts/index-v1.html</code>.</li>
           <li>Crie uma pasta temporária <code>mkdir lixo</code>, coloque um arquivo dentro (<code>New-Item lixo/teste.txt</code>) e depois remova a pasta inteira: <code>rm -r lixo</code>.</li>
           <li>Execute <code>ls</code> e confirme que a pasta <code>lixo</code> sumiu.</li>
-          <li><strong>Desafio:</strong> Copie o arquivo <code>style.css</code> para dentro da pasta <code>imagens</code> e depois o renomeie para <code>reset.css</code>, tudo via terminal.</li>
+          <li>Copie o <code>style.css</code> para dentro da pasta <code>imagens</code>: <code>cp style.css imagens/</code>. Confirme com <code>ls imagens</code>.</li>
+          <li>Entre em <code>imagens</code> e renomeie o arquivo copiado para <code>reset.css</code>.</li>
+          <li>Tente mover dois arquivos de uma vez para a pasta <code>scripts</code>: <code>mv app.js style.css scripts/</code>. Use <code>ls</code> para confirmar.</li>
+          <li>Abra o Explorador de Arquivos e confira se as mudanças feitas no terminal aparecem lá em tempo real.</li>
+          <li><strong>Desafio:</strong> Crie uma pasta chamada <code>backup-geral</code> e copie para dentro dela todos os arquivos que estão diretamente em <code>meu-site</code> (sem entrar nas subpastas), um por um. Depois confirme o resultado com <code>ls backup-geral</code>.</li>
         </ol>
       </div>
     </div>
@@ -783,7 +799,10 @@ Mode        LastWriteTime  Length Name
           <li>Use <code>Get-Content conteudo.txt -Tail 5</code> para ver apenas as 5 últimas.</li>
           <li>Altere o número para 10 e repita os dois comandos acima. Qual é a diferença?</li>
           <li>Use <code>cat index.html</code>. O que aparece? Por que o arquivo está vazio?</li>
-          <li><strong>Desafio:</strong> Crie um segundo arquivo de texto com conteúdo diferente e use <code>cat</code> seguido dos dois nomes de arquivo ao mesmo tempo: <code>cat arquivo1.txt arquivo2.txt</code>. O que acontece?</li>
+          <li>Crie um segundo arquivo <code>notas.txt</code> com conteúdo diferente pelo Bloco de Notas. Use <code>cat conteudo.txt notas.txt</code>. O que acontece quando passa dois arquivos?</li>
+          <li>Use <code>Get-Content conteudo.txt -Head 1</code>. Qual linha aparece? E com <code>-Tail 1</code>?</li>
+          <li>Tente usar <code>cat</code> em um arquivo que não existe, como <code>cat fantasma.txt</code>. Que mensagem de erro aparece?</li>
+          <li><strong>Desafio:</strong> Use <code>Get-Content</code> em um arquivo dentro de uma subpasta sem precisar entrar nela — passando o caminho completo, por exemplo: <code>Get-Content scripts\main.js</code>. Funciona?</li>
         </ol>
       </div>
     </div>
