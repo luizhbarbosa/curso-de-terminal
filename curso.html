@@ -432,6 +432,20 @@
       <div class="tip"><strong>Importante:</strong> As duas abordagens são <strong>complementares</strong>, não rivais. Profissionais de tecnologia usam as duas.</div>
     </div>
 
+    <div class="ex-block">
+      <div class="ex-header">✏️ Exercício Prático — O que é o Terminal?</div>
+      <div class="ex-body">
+        <ol>
+          <li>Abra o PowerShell usando <code>Win + R</code> → digite <code>powershell</code> → Enter.</li>
+          <li>Observe o que aparece na tela. Identifique: qual é o <strong>prompt</strong>? Qual pasta está sendo exibida?</li>
+          <li>Digite qualquer coisa sem sentido (ex: <code>blabla</code>) e pressione Enter. Leia a mensagem de erro — o que o terminal está dizendo?</li>
+          <li>Execute <code>$PSVersionTable</code> e anote qual versão do PowerShell está instalada.</li>
+          <li>Execute <code>Get-Date</code>. O que esse comando retorna?</li>
+          <li><strong>Desafio:</strong> Descubra e execute o comando que limpa a tela do terminal.</li>
+        </ol>
+      </div>
+    </div>
+
     <div class="concept">
       <h3><span class="num">1.4</span> Como abrir o terminal no Windows</h3>
       <p>Pressione <strong>Win + R</strong>, digite um dos comandos abaixo e pressione Enter:</p>
@@ -545,12 +559,16 @@ la---   27/09/2023 10:00   1584 style.css</span></code>
       <div class="ex-header">✏️ Exercício Prático — Navegação</div>
       <div class="ex-body">
         <ol>
-          <li>Abra o terminal e execute <code>pwd</code> para ver onde você está.</li>
-          <li>Execute <code>ls</code> para listar o conteúdo da pasta atual.</li>
-          <li>Entre em alguma pasta com <code>cd nome_da_pasta</code>.</li>
-          <li>Execute <code>pwd</code> novamente para confirmar onde está.</li>
+          <li>Abra o terminal e execute <code>pwd</code>. Anote o caminho exibido.</li>
+          <li>Execute <code>ls</code> e identifique: quantas pastas e quantos arquivos aparecem?</li>
+          <li>Entre em alguma pasta listada com <code>cd nome_da_pasta</code>.</li>
+          <li>Execute <code>pwd</code> novamente para confirmar a mudança.</li>
+          <li>Execute <code>ls</code> dentro dessa nova pasta. O conteúdo mudou?</li>
           <li>Volte com <code>cd ..</code> e confirme com <code>pwd</code>.</li>
           <li>Vá direto para sua pasta de usuário com <code>cd ~</code>.</li>
+          <li>Tente navegar usando um caminho absoluto completo, por exemplo: <code>cd C:\Users\SeuUsuario\Documents</code>.</li>
+          <li>Agora volte ao usuário com <code>cd ~</code> e faça o mesmo usando caminho relativo: <code>cd Documents</code>.</li>
+          <li><strong>Desafio:</strong> Navegue até pelo menos 3 níveis de profundidade de pasta (ex: Documentos → Projetos → MinhaApp) usando apenas <code>cd</code>, e depois volte ao início usando apenas <code>cd ..</code> repetido.</li>
         </ol>
       </div>
     </div>
@@ -610,10 +628,14 @@ Mode        LastWriteTime  Length Name
       <div class="ex-body">
         <ol>
           <li>Navegue até sua pasta de Documentos com <code>cd ~/Documents</code>.</li>
-          <li>Crie uma pasta chamada <code>meu-projeto</code> com <code>mkdir meu-projeto</code>.</li>
-          <li>Entre nela: <code>cd meu-projeto</code>.</li>
-          <li>Crie os arquivos <code>New-Item index.html style.css</code>.</li>
-          <li>Confirme com <code>ls</code> que tudo foi criado.</li>
+          <li>Crie uma pasta chamada <code>meu-site</code> com <code>mkdir meu-site</code>.</li>
+          <li>Entre nela: <code>cd meu-site</code>.</li>
+          <li>Dentro de <code>meu-site</code>, crie mais duas subpastas de uma vez: <code>mkdir imagens scripts</code>.</li>
+          <li>Confirme com <code>ls</code> que as duas pastas foram criadas.</li>
+          <li>Crie os arquivos principais: <code>New-Item index.html style.css app.js</code>.</li>
+          <li>Entre na pasta <code>imagens</code> e crie um arquivo <code>New-Item placeholder.txt</code>.</li>
+          <li>Volte para <code>meu-site</code> com <code>cd ..</code> e execute <code>ls</code> para ver a estrutura completa.</li>
+          <li><strong>Desafio:</strong> Tente recriar esta estrutura do zero em uma nova pasta chamada <code>meu-site-v2</code>, desta vez sem olhar as instruções acima.</li>
         </ol>
       </div>
     </div>
@@ -686,11 +708,16 @@ Mode        LastWriteTime  Length Name
       <div class="ex-header">✏️ Exercício Prático — Gerenciando</div>
       <div class="ex-body">
         <ol>
-          <li>Dentro de <code>meu-projeto</code>, copie o <code>index.html</code>: <code>cp index.html backup.html</code>.</li>
+          <li>Dentro de <code>meu-site</code>, copie o <code>index.html</code>: <code>cp index.html backup.html</code>.</li>
+          <li>Confirme com <code>ls</code> que o original e a cópia existem.</li>
           <li>Renomeie o backup: <code>mv backup.html index-v1.html</code>.</li>
-          <li>Confirme com <code>ls</code>.</li>
-          <li>Remova o arquivo renomeado: <code>rm index-v1.html</code>.</li>
-          <li>Crie uma pasta <code>mkdir testes</code> e depois remova-a: <code>rm -r testes</code>.</li>
+          <li>Confirme com <code>ls</code> que o nome mudou.</li>
+          <li>Mova o <code>index-v1.html</code> para dentro da pasta <code>scripts</code>: <code>mv index-v1.html scripts/</code>.</li>
+          <li>Entre em <code>scripts</code> e confirme com <code>ls</code> que o arquivo chegou lá.</li>
+          <li>Volte com <code>cd ..</code> e remova o arquivo movido: <code>rm scripts/index-v1.html</code>.</li>
+          <li>Crie uma pasta temporária <code>mkdir lixo</code>, coloque um arquivo dentro (<code>New-Item lixo/teste.txt</code>) e depois remova a pasta inteira: <code>rm -r lixo</code>.</li>
+          <li>Execute <code>ls</code> e confirme que a pasta <code>lixo</code> sumiu.</li>
+          <li><strong>Desafio:</strong> Copie o arquivo <code>style.css</code> para dentro da pasta <code>imagens</code> e depois o renomeie para <code>reset.css</code>, tudo via terminal.</li>
         </ol>
       </div>
     </div>
@@ -750,10 +777,13 @@ Mode        LastWriteTime  Length Name
       <div class="ex-header">✏️ Exercício Prático — Lendo Arquivos</div>
       <div class="ex-body">
         <ol>
-          <li>Crie um arquivo de texto com algum conteúdo (pode ser pelo bloco de notas).</li>
-          <li>Use <code>cat nome_do_arquivo.txt</code> para ver o conteúdo.</li>
-          <li>Use <code>Get-Content nome_do_arquivo.txt -Head 5</code> para ver as 5 primeiras linhas.</li>
-          <li>Use <code>Get-Content nome_do_arquivo.txt -Tail 5</code> para ver as 5 últimas.</li>
+          <li>Abra o Bloco de Notas, escreva pelo menos 20 linhas numeradas (Linha 1, Linha 2... Linha 20) e salve como <code>conteudo.txt</code> dentro de <code>meu-site</code>.</li>
+          <li>No terminal, navegue até <code>meu-site</code> e use <code>cat conteudo.txt</code> para ver o arquivo completo.</li>
+          <li>Use <code>Get-Content conteudo.txt -Head 5</code> para ver apenas as 5 primeiras linhas.</li>
+          <li>Use <code>Get-Content conteudo.txt -Tail 5</code> para ver apenas as 5 últimas.</li>
+          <li>Altere o número para 10 e repita os dois comandos acima. Qual é a diferença?</li>
+          <li>Use <code>cat index.html</code>. O que aparece? Por que o arquivo está vazio?</li>
+          <li><strong>Desafio:</strong> Crie um segundo arquivo de texto com conteúdo diferente e use <code>cat</code> seguido dos dois nomes de arquivo ao mesmo tempo: <code>cat arquivo1.txt arquivo2.txt</code>. O que acontece?</li>
         </ol>
       </div>
     </div>
